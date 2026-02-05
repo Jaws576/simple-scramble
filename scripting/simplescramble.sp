@@ -127,13 +127,6 @@ public void OnPluginStart() {
 		SetFailState("GameData \"simplescramble.txt\" does not exist.");
 	}
 	
-	StartPrepSDKCall(SDKCall_Player);
-	PrepSDKCall_SetFromConf(gameconf, SDKConf_Signature, "CTFPlayer::RemoveAllOwnedEntitiesFromWorld");
-	PrepSDKCall_AddParameter(SDKType_Bool, SDKPass_Plain);
-	g_SDKCall_RemoveAllOwnedEntitiesFromWorld = EndPrepSDKCall();
-	if (g_SDKCall_RemoveAllOwnedEntitiesFromWorld == null) {
-		SetFailState("Failed to create SDKCall for \"CTeamplayRoundBasedRules::RemoveAllOwnedEntitiesFromWorld\".");
-	}
 
 	delete gameconf;
 

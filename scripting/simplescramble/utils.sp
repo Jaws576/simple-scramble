@@ -98,7 +98,19 @@ void ResetSetupTimer() {
  * @noreturn
  */
 void RemoveClientOwnedEntities(int client, bool explodeBuildings = false) {
-	SDKCall(g_SDKCall_RemoveAllOwnedEntitiesFromWorld, client, explodeBuildings);
+	static const char buildingClassnames[][] = {
+		"obj_sentrygun",
+		"obj_dispenser",
+		"obj_teleporter"
+	};
+	for (int i = 0; i < sizeof(buildingClassnames); i++) {
+		int entity = -1;
+		while ((entity = FindEntityByClassname(entity, buildingClassnames[i])) != -1) {
+			if (GetEntPropEnt(entity, Prop_Send, "m_hBuilder") == client) {
+				AcceptEntityInput(entity, "Kill");
+			}
+		}
+	}
 }
 
 static char s_PickupClassnames[][] = {
